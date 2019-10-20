@@ -1,10 +1,6 @@
 package br.edu.ifpb;
 
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.NavigableSet;
-import java.util.Objects;
-import java.util.TreeSet;
+import java.util.*;
 
 public class Banco implements Iterable<Conta> {
     private String nome;
@@ -18,11 +14,16 @@ public class Banco implements Iterable<Conta> {
     }
 
     public String getNome() { return nome; }
-    public void setNome(String nome) {
-        this.nome = Objects.requireNonNullElse(nome, "--sem nome--");
+    public void setNome(String nome) { this.nome = Objects.requireNonNullElse(nome, "--sem nome--"); }
+
+    public boolean adicionar_Conta(int numero, String titular, double saldo) {
+        return contas.add(new Conta(numero, titular, saldo));
+    }
+    public boolean remover_Conta(int numero) { return contas.remove(buscar_Conta(numero)); }
+    public Optional<Conta> buscar_Conta(int numero) {
+        return contas.stream().filter(conta -> conta.getNumero() == numero).findFirst();
     }
     
     @Override
     public Iterator<Conta> iterator() { return contas.iterator(); }
-
 }

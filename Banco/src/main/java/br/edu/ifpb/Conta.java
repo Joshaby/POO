@@ -1,7 +1,6 @@
 package br.edu.ifpb;
 
-import java.util.Comparator;
-import java.util.Objects;
+import java.util.*;
 
 public class Conta implements Comparable<Conta> {
     private int numero;
@@ -9,14 +8,7 @@ public class Conta implements Comparable<Conta> {
     private double saldo;
     private String extrato = "\tExtrato:\n\n";
 
-    public static final Comparator<Conta> COMPARAR_NUM = new Comparator<Conta>() {
-        @Override
-        public int compare(Conta arg0, Conta arg1) {
-            if (arg0.getNumero() > arg1.getNumero()) return 1;
-            if (arg0.getNumero() < arg1.getNumero()) return -1;
-            return 0;
-        }
-    };
+    public static final Comparator<Conta> COMPARAR_NUM = Comparator.comparing(Conta :: getNumero);
     
     public Conta() { this(0, null, 900.00); }
     public Conta(int numero, String titular, double saldo) {
@@ -78,9 +70,7 @@ public class Conta implements Comparable<Conta> {
         if (obj == null || getClass() != obj.getClass())
             return false;
         Conta other = (Conta) obj;
-        if (numero != other.numero)
-            return false;
-        return true;
+        return numero == other.numero;
     }
 
     @Override
