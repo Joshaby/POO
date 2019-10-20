@@ -1,2 +1,2 @@
 # lab_poo
-Atividades da discipliana Labolatório de POO
+Atividades de sala e alguns testes usando POO com Java
