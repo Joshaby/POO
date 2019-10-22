@@ -9,6 +9,7 @@ public class Banco implements Iterable<Conta>, AutoCloseable {
 
     public Banco() { this("--sem nome--", Comparator.naturalOrder()); }
     public Banco(String nome) { this(nome, Comparator.naturalOrder()); }
+    public Banco(Comparator<Conta> comparator) { this("--sem nome--", comparator); }
     public Banco(String nome, Comparator<Conta> comparator) {
         this.nome = Objects.requireNonNullElse(nome, "--sem nome--");
         Comparator<Conta> comp = Objects.requireNonNullElse(comparator, Comparator.naturalOrder());
@@ -24,8 +25,8 @@ public class Banco implements Iterable<Conta>, AutoCloseable {
     public boolean adicionar_Conta(Conta conta) {
         return contas.add(conta);
     }
-    public boolean remover_Conta(int numero) throws ContaException { return contas.remove(buscar_Conta(numero));
-    }
+    public boolean remover_Conta(int numero) throws ContaException { return contas.remove(buscar_Conta(numero)); }
+    public boolean remover_Conta(Conta c) { return contas.remove(c); }
     public Conta buscar_Conta(int numero) throws ContaException {
         return contas.stream()
                 .filter(conta -> conta.getNumero() == numero)
@@ -41,6 +42,11 @@ public class Banco implements Iterable<Conta>, AutoCloseable {
         return string.toString();
     }
     public String exibir_Conta(int numero) throws ContaException { return buscar_Conta(numero).toString(); }
+    public String exibir_Contas() {
+        StringBuilder string = new StringBuilder();
+        for (Conta c : contas) { string.append(c); }
+        return string.toString();
+    }
 
     @Override
     public Iterator<Conta> iterator() { return contas.iterator(); }
