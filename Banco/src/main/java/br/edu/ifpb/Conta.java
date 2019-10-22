@@ -8,7 +8,8 @@ public class Conta implements Comparable<Conta> {
     private double saldo;
     private String extrato = "\tExtrato:\n\n";
 
-    public static final Comparator<Conta> COMPARAR_NUM = Comparator.comparing(Conta :: getNumero);
+    public static final Comparator<Conta> COMPARAR_TITULAR = Comparator.comparing(Conta :: getTitular);
+    public static final Comparator<Conta> COMPARAR_SALDO = Comparator.comparingDouble(Conta :: getSaldo);
     
     public Conta() { this(0, null, 900.00); }
     public Conta(int numero, String titular, double saldo) {
