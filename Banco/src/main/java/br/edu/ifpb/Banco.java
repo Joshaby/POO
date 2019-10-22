@@ -2,7 +2,7 @@ package br.edu.ifpb;
 
 import java.util.*;
 
-public class Banco implements Iterable<Conta> {
+public class Banco implements Iterable<Conta>, AutoCloseable {
     private String nome;
     private int qtde_Contas;
     private TreeSet<Conta> contas;
@@ -24,17 +24,27 @@ public class Banco implements Iterable<Conta> {
     public boolean adicionar_Conta(Conta conta) {
         return contas.add(conta);
     }
-    public boolean remover_Conta(int numero) { return contas.remove(buscar_Conta(numero)); }
-    public Conta buscar_Conta(int numero) {
+    public boolean remover_Conta(int numero) throws ContaException { return contas.remove(buscar_Conta(numero));
+    }
+    public Conta buscar_Conta(int numero) throws ContaException {
         return contas.stream()
                 .filter(conta -> conta.getNumero() == numero)
-                .findFirst().orElseThrow();
+                .findFirst().orElseThrow(() -> new ContaException("A conta não existe"));
     }
-    public TreeSet<Conta> filtrar_Conta(int numero, int numero1) {
-        return (TreeSet<Conta>) contas.subSet(buscar_Conta(numero), true, contas.ceiling(buscar_Conta(numero1)), true);
+    public String filtrar_Conta(int numero, int numero1) throws ContaException {
+        TreeSet<Conta> contas_FIL = (TreeSet<Conta>) contas
+                .subSet(buscar_Conta(numero), true, buscar_Conta(numero1), true);
+        StringBuilder string = new StringBuilder(" ");
+        for (Conta c : contas) {
+            string.append(c);
+        }
+        return string.toString();
     }
-    public String exibir_Conta(int numero) { return buscar_Conta(numero).toString(); }
+    public String exibir_Conta(int numero) throws ContaException { return buscar_Conta(numero).toString(); }
 
     @Override
     public Iterator<Conta> iterator() { return contas.iterator(); }
+
+    @Override
+    public void close() throws BancoException { System.out.println("Fechando o banco! Adeus"); }
 }

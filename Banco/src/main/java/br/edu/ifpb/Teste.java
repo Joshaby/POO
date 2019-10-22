@@ -1,10 +1,16 @@
 package br.edu.ifpb;
 
+import java.io.File;
+import java.util.Scanner;
+
 public class Teste {
     public static void main(String[] args) {
-        Conta conta = new Conta(0, "José", 23456.90);
-        Banco banco = new Banco("Banco do Brasil", Conta.COMPARAR_NUM);
-        banco.adicionar_Conta(conta);
-        System.out.println(banco.exibir_Conta(0));
+        try(Banco banco = new Banco("Banco do Brasil");) {
+            banco.adicionar_Conta(new Conta(0, "José", 23456.90));
+            banco.adicionar_Conta(new Conta(1, "José", 23456.90));
+            banco.adicionar_Conta(new Conta(2, "José", 23456.90));
+            System.out.println(banco.buscar_Conta(2).toString());
+        }
+        catch (ContaException | BancoException e) { System.out.println(e.getMessage()); }
     }
 }
