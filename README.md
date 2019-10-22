@@ -1,2 +1,2 @@
-# lab_poo
-Atividades de sala e alguns testes usando POO com Java
+# POO
+Repositório com códigos usando POO com Java
