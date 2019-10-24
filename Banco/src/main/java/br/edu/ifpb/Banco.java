@@ -4,7 +4,6 @@ import java.util.*;
 
 public class Banco implements Iterable<Conta>, AutoCloseable {
     private String nome;
-    private int qtde_Contas;
     private TreeSet<Conta> contas;
 
     public Banco() { this("--sem nome--", Comparator.naturalOrder()); }
@@ -29,8 +28,7 @@ public class Banco implements Iterable<Conta>, AutoCloseable {
     public boolean remover_Conta(Conta c) { return contas.remove(c); }
     public Conta buscar_Conta(int numero) throws ContaException {
         return contas.stream()
-                .filter(conta -> conta.getNumero() == numero)
-                .findFirst().orElseThrow(() -> new ContaException("A conta não existe"));
+                .filter(conta -> conta.getNumero() == numero).findFirst().orElseThrow(() -> new ContaException("A conta não existe"));
     }
     public String filtrar_Conta(int numero, int numero1) throws ContaException {
         TreeSet<Conta> contas_FIL = (TreeSet<Conta>) contas
@@ -47,10 +45,19 @@ public class Banco implements Iterable<Conta>, AutoCloseable {
         for (Conta c : contas) { string.append(c); }
         return string.toString();
     }
+    public int qtde_Contas() { return contas.size(); }
 
     @Override
     public Iterator<Conta> iterator() { return contas.iterator(); }
 
     @Override
     public void close() throws BancoException { System.out.println("Fechando o banco! Adeus"); }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Nome do banco: %s\n" +
+                "Qtde. de contas: %i\n" +
+                "Contas:\n\n %s", getNome(), qtde_Contas(), exibir_Contas());
+    }
 }
