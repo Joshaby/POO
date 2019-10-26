@@ -32,7 +32,7 @@ public class Locadora implements Iterable<Map.Entry<Cliente, HashSet<Dvd>>> {
     }
 
     public void adicionar_Historico_Emprestimo(Cliente c, Dvd d) throws DvdException {
-        if (!historico.containsKey(c)) { historico.put(c, new HashSet<Dvd>(Arrays.asList(d))); }
+        if (!historico.containsKey(c)) { historico.put(c, new HashSet<Dvd>(Arrays.asList(d))); } //Pq esse Arrays.asList() funcionou em um HashSet?? NEM EU SEI AHSHAUHSAUHSUAHSU
         else {
             HashSet<Dvd> aux = historico.get(c);
             if (aux.contains(d)) throw new DvdException("O dvd já foi locado pelo cliente");
