@@ -7,10 +7,10 @@ public class Cliente implements Iterable<Cliente> {
     private int id;
 
     public Cliente() {
-        this("--sem nome--", 0);
+        this(0, "--sem nome--");
     }
 
-    public Cliente(String nome, int id) {
+    public Cliente(int id, String nome) {
         setNome(nome);
         setId(id);
     }
@@ -23,9 +23,7 @@ public class Cliente implements Iterable<Cliente> {
 
     @Override
     public String toString() {
-        return String.format(
-                "Nome: %s " +
-                "Id: %d ", getNome(), getId());
+        return String.format("%d %s", getId(), getNome());
     }
 
     @Override

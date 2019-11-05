@@ -5,8 +5,8 @@ public class Dvd {
     private int id;
     private String genero;
 
-    public Dvd() { this("--sem nome--", 0, "--sem genero--"); }
-    public Dvd(String nome, int id, String genero) {
+    public Dvd() { this(0, "--sem nome--", "--sem genero--"); }
+    public Dvd(int id, String nome, String genero) {
         setNome(nome);
         setId(id);
         setGenero(genero);
@@ -23,10 +23,7 @@ public class Dvd {
 
     @Override
     public String toString() {
-        return String.format(
-                "Nome: %s " +
-                "Id: %d " +
-                "Gênero: %s", getNome(), getId(), getGenero());
+        return String.format("%d %s %s", getId(), getNome(), getGenero());
     }
 
     @Override

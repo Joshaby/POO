@@ -6,24 +6,21 @@ import static org.hamcrest.Matchers.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
+
 public class LocadoraTest {
     Locadora l = new Locadora();
-    Cliente c = new Cliente("José", 0);
-    Cliente c1 = new Cliente("José", 1);
-    Cliente c2 = new Cliente("José", 2);
-    Cliente c3 = new Cliente("José", 3);
-    Dvd d = new Dvd("FF3", 0, "Ação");
-    Dvd d1 = new Dvd("FF3", 1, "Ação");
-    Dvd d2 = new Dvd("FF3", 2, "Ação");
-    Dvd d3 = new Dvd("FF3", 3, "Ação");
+    Cliente c = new Cliente(0, "José");
+    Cliente c1 = new Cliente(1, "Henrique");
+    Dvd d = new Dvd(0,"FF3", "Ação");
+    Dvd d1 = new Dvd(1, "FF3", "Ação");
 
     @Test
     public void printarMap() {
         try {
             l.adicionar_Historico_Emprestimo(c, d);
-            System.out.println(l.historico);
-            l.adicionar_Historico_Emprestimo(c, d);
-            System.out.println(l.historico);
+            l.adicionar_Historico_Emprestimo(c1, d);
+
         } catch (DvdException e) {
             System.out.println(e.getMessage());
         }
@@ -33,11 +30,19 @@ public class LocadoraTest {
     public void cadastrar_Clientes_Dvds() {
         l.adicionar_Cliente(c);
         l.adicionar_Cliente(c1);
-        l.adicionar_Cliente(c2);
-        l.adicionar_Cliente(c3);
         l.adicionar_Dvd(d);
         l.adicionar_Dvd(d1);
-        l.adicionar_Dvd(d2);
-        l.adicionar_Dvd(d3);
+    }
+
+    @Test
+    public void test() throws DadosException, IOException {
+        l.start_Collections(l.CLIENTES_TXT, l.CLIENTES);
+        System.out.println(l.getClientes());
+
+        l.start_Collections(l.HISTORICO_TXT, l.HISTORICO);
+        System.out.println(l.getHistorico());
+
+        l.start_Collections(l.DVDS_TXT, l.DVDS);
+        System.out.println(l.getDvds());
     }
 }
