@@ -52,8 +52,9 @@ public class Banco implements Iterable<Conta>, AutoCloseable {
                 .filter(conta -> conta.getNumero() == numero).findFirst().orElseThrow(() -> new ContaException("A conta não existe"));
     }
     public String filtrar_Conta(int numero, int numero1) throws ContaException {
-        TreeSet<Conta> contas_FIL = (TreeSet<Conta>) contas.stream()
-                .filter(Conta -> Conta.getNumero() >= numero && Conta.getNumero() <= numero1).collect(Collectors.toSet());
+        TreeSet<Conta> contas_FIL = new TreeSet<>(Comparator.naturalOrder());
+        contas_FIL.addAll(contas.stream()
+                .filter(Conta -> Conta.getNumero() >= numero && Conta.getNumero() <= numero1).collect(Collectors.toSet()));
         StringBuilder string = new StringBuilder(" ");
         for (Conta c : contas) {
             string.append(c);
