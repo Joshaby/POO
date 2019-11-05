@@ -23,7 +23,7 @@ public class Cliente implements Iterable<Cliente> {
 
     @Override
     public String toString() {
-        return String.format("%d %s", getId(), getNome());
+        return String.format("%d %s ", getId(), getNome());
     }
 
     @Override

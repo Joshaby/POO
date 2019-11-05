@@ -3,9 +3,12 @@ package br.edu.ifpb;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Locadora {
     private String nome;
@@ -26,32 +29,6 @@ public class Locadora {
         clientes = new HashSet<>();
         dvds = new HashSet<>();
         historico = new HashMap<Cliente, HashSet<Dvd>>();
-    }
-
-    public void start_Collections(String BD, String mod) throws DadosException, IOException {
-        if (clientes.isEmpty() || dvds.isEmpty() || historico.isEmpty()) {
-            File file = new File(BD);
-            if (BD.isEmpty()) {
-                throw new DadosException();
-            }
-            for (String s : Files.readAllLines(Path.of(BD))) {
-                String[] AUX = s.split(" ");
-                if (mod.equalsIgnoreCase("historico")) {
-                    List<String> AUX1 = new ArrayList<>(Arrays.asList(Arrays.copyOfRange(AUX, 2, AUX.length)));
-                    HashSet<Dvd> AUX2 = new HashSet<>();
-                    for (int i = 0; i < AUX1.size(); i += 3) {
-                        AUX2.add(new Dvd(Integer.parseInt(AUX1.get(i)), AUX1.get(i + 1), AUX1.get(i + 2)));
-                    }
-                    historico.put(new Cliente(Integer.parseInt(AUX[0]), AUX[1]), AUX2);
-                }
-                if (mod.equalsIgnoreCase("clientes")) {
-                    clientes.add(new Cliente(Integer.parseInt(AUX[0]), AUX[1]));
-                }
-                if (mod.equalsIgnoreCase("dvds")) {
-                    dvds.add(new Dvd(Integer.parseInt(AUX[0]), AUX[1], AUX[2]));
-                }
-            }
-        }
     }
 
     public String getNome() { return nome; }
@@ -103,5 +80,48 @@ public class Locadora {
             if (!aux.contains(d)) throw new DvdException("O dvd não foi locado pelo cliente");
             else { aux.remove(d); }
         }
+    }
+    public void start_Collections(String BD, String mod) throws DadosException, IOException {
+        if (clientes.isEmpty() || dvds.isEmpty() || historico.isEmpty()) {
+            File file = new File(BD);
+            if (BD.isEmpty()) {
+                throw new DadosException();
+            }
+            for (String s : Files.readAllLines(Path.of(BD))) {
+                String[] AUX = s.split(" ");
+                if (mod.equalsIgnoreCase("historico")) {
+                    List<String> AUX1 = new ArrayList<>(Arrays.asList(Arrays.copyOfRange(AUX, 2, AUX.length)));
+                    HashSet<Dvd> AUX2 = new HashSet<>();
+                    for (int i = 0; i < AUX1.size(); i += 3) {
+                        AUX2.add(new Dvd(Integer.parseInt(AUX1.get(i)), AUX1.get(i + 1), AUX1.get(i + 2)));
+                    }
+                    historico.put(new Cliente(Integer.parseInt(AUX[0]), AUX[1]), AUX2);
+                }
+                if (mod.equalsIgnoreCase("clientes")) {
+                    clientes.add(new Cliente(Integer.parseInt(AUX[0]), AUX[1]));
+                }
+                if (mod.equalsIgnoreCase("dvds")) {
+                    dvds.add(new Dvd(Integer.parseInt(AUX[0]), AUX[1], AUX[2]));
+                }
+            }
+        }
+    }
+    public void write_Collections(String BD, String mod) throws IOException {
+        List<String> AUX = new ArrayList<>();
+        if (mod.equalsIgnoreCase("historico")) {
+            for (Cliente c : historico.keySet()) {
+                AUX.add(c + historico.get(c).stream().map(Dvd::toString).collect(Collectors.joining(" ")));
+            }
+        }
+        if (mod.equalsIgnoreCase("clientes")) {
+            AUX = clientes.stream().map(Cliente::toString).collect(Collectors.toList());
+        }
+        if (mod.equalsIgnoreCase("dvds")) {
+            AUX = dvds.stream().map(Dvd::toString).collect(Collectors.toList());
+        }
+        Files.write(Path.of(BD), AUX, Charset.defaultCharset()
+                , StandardOpenOption.CREATE
+                , StandardOpenOption.TRUNCATE_EXISTING
+                , StandardOpenOption.WRITE);
     }
 }
