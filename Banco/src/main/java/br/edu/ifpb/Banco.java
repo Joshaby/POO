@@ -1,24 +1,44 @@
 package br.edu.ifpb;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Banco implements Iterable<Conta>, AutoCloseable {
+    public static final String CONTAS_TXT = "contas.txt";
     private String nome;
-    private TreeSet<Conta> contas;
+    private HashSet<Conta> contas;
 
-    public Banco() { this("--sem nome--", Comparator.naturalOrder()); }
-    public Banco(String nome) { this(nome, Comparator.naturalOrder()); }
-    public Banco(Comparator<Conta> comparator) { this("--sem nome--", comparator); }
-    public Banco(String nome, Comparator<Conta> comparator) {
+    public Banco() { this("--sem nome--"); }
+    public Banco(String nome) {
         this.nome = Objects.requireNonNullElse(nome, "--sem nome--");
-        Comparator<Conta> comp = Objects.requireNonNullElse(comparator, Comparator.naturalOrder());
-        contas = new TreeSet<>(comp);
+        contas = new HashSet<>();
     }
 
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = Objects.requireNonNullElse(nome, "--sem nome--"); }
-
+    public void start_Contas() throws IOException, DadosException {
+        if (contas.isEmpty()) {
+            File file = new File(CONTAS_TXT);
+            if (file.exists()) {
+                if (file.length() < 1) {
+                    throw new DadosException();
+                }
+                Set<String> AUX = new HashSet<>(Files.readAllLines(Path.of(CONTAS_TXT)));
+                for (String c : AUX) {
+                    String[] AUX1 = c.split(" ");
+                    contas.add(new Conta(Integer.parseInt(AUX1[0]), AUX1[1], Double.parseDouble(AUX1[2])));
+                }
+            }
+            else throw new DadosException("O banco de dados não existe!");
+        }
+    }
     public boolean adicionar_Conta(int numero, String titular, double saldo) {
         return contas.add(new Conta(numero, titular, saldo));
     }
@@ -41,12 +61,19 @@ public class Banco implements Iterable<Conta>, AutoCloseable {
         return string.toString();
     }
     public String exibir_Conta(int numero) throws ContaException { return buscar_Conta(numero).toString(); }
-    public String exibir_Contas() {
+    public String exibir_Conta() {
         StringBuilder string = new StringBuilder();
         for (Conta c : contas) { string.append(c); }
         return string.toString();
     }
     public int qtde_Contas() { return contas.size(); }
+    public void write_Contas() throws IOException {
+        Files.write(Path.of(CONTAS_TXT), contas.stream().map(Conta::toString).collect(Collectors.toSet())
+                , Charset.defaultCharset()
+                , StandardOpenOption.CREATE
+                , StandardOpenOption.TRUNCATE_EXISTING
+                , StandardOpenOption.WRITE);
+    }
 
     @Override
     public Iterator<Conta> iterator() { return contas.iterator(); }
@@ -59,6 +86,6 @@ public class Banco implements Iterable<Conta>, AutoCloseable {
         return String.format(
                 "Nome do banco: %s\n" +
                 "Qtde. de contas: %i\n" +
-                "Contas:\n\n %s", getNome(), qtde_Contas(), exibir_Contas());
+                "Contas:\n\n %s", getNome(), qtde_Contas(), exibir_Conta());
     }
 }

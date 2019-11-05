@@ -2,7 +2,7 @@ package br.edu.ifpb;
 
 import java.util.*;
 
-public class Conta implements Comparable<Conta> {
+public class Conta implements Comparable<Conta>{
     private int numero;
     private String titular;
     private double saldo;
@@ -51,11 +51,7 @@ public class Conta implements Comparable<Conta> {
 
     @Override
     public String toString() {
-        return String.format("\tConta:\n\n" + 
-                             "\tNúmero: %d\n" +
-                             "\tTitular: %s\n" + 
-                             "\tSaldo: R$ %.2f\n\n" + 
-                             "%s\n", numero, titular, saldo, extrato);
+        return String.format("%d %s %.2f %s", numero, titular, saldo, extrato);
     }
 
     @Override
