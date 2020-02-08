@@ -11,7 +11,7 @@ public class TestBanco {
     }
 
     public static void show_Gui(String name) {
-        System.out.printf("Banco: %s\n", name);
+        System.out.printf("Banco Japaguei: %s\n", name);
         System.out.println("1 - Adcionar conta\n" +
                         "2 - Remover conta\n" +
                         "3 - Filtrar contas\n" +
