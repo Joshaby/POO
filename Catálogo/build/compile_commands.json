@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/jose/Documentos/Curso C++/Práticas/Catálogo/build",
+  "command": "/usr/bin/g++   -g -o CMakeFiles/TestCatalogo.dir/src/TestCatalogo.cpp.o -c \"/home/jose/Documentos/Curso C++/Práticas/Catálogo/src/TestCatalogo.cpp\"",
+  "file": "/home/jose/Documentos/Curso C++/Práticas/Catálogo/src/TestCatalogo.cpp"
+}
+]

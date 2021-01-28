@@ -1,2 +1,0 @@
-0 José 0 FF3 Ação 1 FF4 Ação
-1 José 0 FF3 Ação 1 FF4 Ação

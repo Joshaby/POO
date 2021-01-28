@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/jose/Documentos/Curso C++/Práticas/Catálogo/include/Catalogo.h
+Livro.h
+/home/jose/Documentos/Curso C++/Práticas/Catálogo/include/Livro.h
+LivroException.h
+/home/jose/Documentos/Curso C++/Práticas/Catálogo/include/LivroException.h
+iostream
+-
+vector
+-
+
+/home/jose/Documentos/Curso C++/Práticas/Catálogo/include/CategoriaEnum.h
+iostream
+-
+
+/home/jose/Documentos/Curso C++/Práticas/Catálogo/include/Livro.h
+iostream
+-
+CategoriaEnum.h
+/home/jose/Documentos/Curso C++/Práticas/Catálogo/include/CategoriaEnum.h
+
+/home/jose/Documentos/Curso C++/Práticas/Catálogo/include/LivroException.h
+iostream
+-
+
+/home/jose/Documentos/Curso C++/Práticas/Catálogo/src/TestCatalogo.cpp
+../include/Catalogo.h
+/home/jose/Documentos/Curso C++/Práticas/Catálogo/include/Catalogo.h
+iostream
+-
+
