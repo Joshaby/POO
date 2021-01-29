@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/jose/Documentos/Curso C++/Pr\u00e1ticas/Cat\u00e1logo/build"
+			"value" : "/home/jose/Documentos/Curso C++/Pr\u00e1ticas/POO/Cat\u00e1logo/build"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -603,7 +603,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/jose/Documentos/Curso C++/Pr\u00e1ticas/Cat\u00e1logo"
+			"value" : "/home/jose/Documentos/Curso C++/Pr\u00e1ticas/POO/Cat\u00e1logo"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1139,7 +1139,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/jose/Documentos/Curso C++/Pr\u00e1ticas/Cat\u00e1logo/build"
+			"value" : "/home/jose/Documentos/Curso C++/Pr\u00e1ticas/POO/Cat\u00e1logo/build"
 		},
 		{
 			"name" : "Cat\u00e1logo_SOURCE_DIR",
@@ -1151,7 +1151,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/jose/Documentos/Curso C++/Pr\u00e1ticas/Cat\u00e1logo"
+			"value" : "/home/jose/Documentos/Curso C++/Pr\u00e1ticas/POO/Cat\u00e1logo"
 		}
 	],
 	"kind" : "cache",

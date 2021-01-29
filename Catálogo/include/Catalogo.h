@@ -20,7 +20,7 @@ class Catalogo {
         void getLivros(int, vector<Livro> *livros);
         void getLivro(string, Livro *Livro);
         void addLivro(Livro);
-        void removeLivro(string);
+        void removeLivro(string, Livro *livro);
         string showAllLivros();
         string toString();
 };
@@ -62,7 +62,6 @@ void Catalogo::getLivro(string nome, Livro *livro) {
         for (int i = 0; i < (*livros).size(); i ++) {
             if ((*livros).at(i).getNome() == nome) {
                 *livro = (*livros).at(i);
-                cout << "Livro encontrado!" << endl;
                 return;
             }
         }
@@ -75,10 +74,13 @@ void Catalogo::getLivro(string nome, Livro *livro) {
 void Catalogo::addLivro(Livro livro) {
     (*livros).push_back(livro);
 }
-void Catalogo::removeLivro(string nome) {
-    for (int i = 0; (*livros).size(); i ++)
-        if ((*livros).at(i).getNome() == nome)
+void Catalogo::removeLivro(string nome, Livro *livro) {
+    for (int i = 0; (*livros).size(); i ++) {
+        if ((*livros).at(i).getNome() == nome) {
+            *livro = (*livros).at(i);
             (*livros).erase((*livros).begin() + i);
+        }
+    }
 }
 string Catalogo::showAllLivros() {
     string output = toString();
